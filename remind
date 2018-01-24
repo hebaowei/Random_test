@@ -1,0 +1,72 @@
+import random
+from fractions import Fraction
+def calculate(n1,n2,op):
+    if op=='+':
+      ans=n1+n2
+    elif op=='-':
+      ans=n1-n2
+    elif op=='*':
+      ans=n1*n2
+    else:
+        if n2=='0':
+          print ('分母不能为零！')
+        else:
+          ans=n1/n2
+    return ans
+
+
+#提示功能
+def remind(a):
+   for i in range(1,len(a)):
+      if a[i]=='*' or a[i]=='÷':
+        ans=calculate(a[i-1],a[i+1],a[i])
+        a[i - 1] = ans
+        del a[i]
+        del a[i]
+        c = toString(a)
+        print(c)
+        return 0
+   for i in range(1, len(a)):
+       if a[i] == '+' or a[i] == '-':
+           ans = calculate(a[i - 1], a[i + 1], a[i])
+           a[i - 1] = ans
+           del a[i]
+           del a[i]
+           c = toString(a)
+           print(c)
+           return 0
+
+def toString(timu):
+    ''' 把题目生成字符串 '''
+    res = ''
+    for item in timu:
+        res += str(item)
+    return res
+
+opers = ['+', '-', '*', '÷']
+timu = []
+oper_count = random.randint(1, 9)
+timu.append(Fraction(random.randint(1, 9), 1))
+for i in range(oper_count):
+    timu.append(opers[random.randint(0, 3)])
+    ch=random.randint(1,5)
+    if ch==1:
+        a=random.randint(1,9)
+        b=random.randint(1,9)
+        if a>=b:
+            c=Fraction(b,a)
+            timu.append(Fraction(c))
+        else:
+            c=Fraction(a,b)
+            timu.append(Fraction(c))
+    else:
+        timu.append(Fraction (random.randint(1,9),1))
+print(timu)
+k=toString(timu)
+print(k)
+
+while len(k)!=1:
+ if input('')=='':
+  remind(timu)
+
+
